@@ -25,13 +25,18 @@
             color: pink;
             font-size: 100px;
         }
+        #restart-button {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div id="game-container">
         <h1>Click the Button</h1>
-        <button id="click-button">Click me!</button>
+        <button id="click-button">Click me! (20)</button>
         <div id="heart-container"></div>
+        <button id="restart-button">Restart</button>
     </div>
 
     <script>
@@ -46,13 +51,24 @@
             if (clickCount <= 20) {
                 newHeart.textContent = '❤️';
                 newHeart.classList.add('heart');
+                document.getElementById('click-button').textContent = `Click me! (${20 - clickCount})`;
             } else if (clickCount === 21) {
                 heartContainer.innerHTML = '';  // Clear previous hearts
                 newHeart.textContent = '💗';
                 newHeart.classList.add('big-heart');
+                document.getElementById('click-button').style.display = 'none'; // Hide click button
+                document.getElementById('restart-button').style.display = 'block'; // Show restart button
             }
 
             heartContainer.appendChild(newHeart);
+        });
+
+        document.getElementById('restart-button').addEventListener('click', function() {
+            clickCount = 0;
+            document.getElementById('heart-container').innerHTML = '';
+            document.getElementById('click-button').textContent = 'Click me! (20)';
+            document.getElementById('click-button').style.display = 'inline-block'; // Show click button
+            document.getElementById('restart-button').style.display = 'none'; // Hide restart button
         });
     </script>
 </body>
