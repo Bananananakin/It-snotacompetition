@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Click Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #game {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            border: 2px solid #000;
+            background-color: #fff;
+        }
+
+        #target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="target"></div>
+        <div id="score">Score: 0</div>
+    </div>
+    <script>
+        let score = 0;
+
+        const game = document.getElementById('game');
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+
+        function moveTarget() {
+            const gameRect = game.getBoundingClientRect();
+            const targetSize = target.offsetWidth;
+
+            const x = Math.random() * (gameRect.width - targetSize);
+            const y = Math.random() * (gameRect.height - targetSize);
+
+            target.style.left = `${x}px`;
+            target.style.top = `${y}px`;
+        }
+
+        target.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+            moveTarget();
+        });
+
+        // Initialize the game
+        moveTarget();
+    </script>
+</body>
+</html>
